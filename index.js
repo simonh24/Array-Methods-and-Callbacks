@@ -211,3 +211,16 @@ console.log(getAverageGoals(fifaData));
 /// STRETCH 🥅 //
 
 /* Use the space below to work on any stretch goals of your chosing as listed in the README file. */
+
+function teamGoals(data, teamInitials) {
+    return data.reduce((acc, element) => {
+        if (element["Home Team Initials"] === teamInitials) {
+            acc += element["Home Team Goals"];
+        } else if (element["Away Team Initials"] === teamInitials) {
+            acc += element["Away Team Goals"];;
+        }
+        return acc;
+    }, 0)
+}
+
+console.log(teamGoals(fifaData, "ITA"));
