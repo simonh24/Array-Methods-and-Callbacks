@@ -224,3 +224,48 @@ function teamGoals(data, teamInitials) {
 }
 
 console.log(teamGoals(fifaData, "ITA"));
+
+function teamAppearances(data, teamInitials) {
+    return data.reduce((acc, element) => {
+        if (element["Home Team Initials"] === teamInitials) {
+            acc += 1;
+        } else if (element["Away Team Initials"] === teamInitials) {
+            acc += 1;
+        }
+        return acc;
+    }, 0)
+}
+
+console.log(teamAppearances(fifaData, "ITA"));
+
+function addCountries(data) {    
+    const counterMap = {};
+    data.forEach(game => {
+    // logic here to determine mapping from team -> # goals (home vs away)
+    const awayTeam = game["Away Team Name"];
+    const homeTeam = game["Home Team Name"];
+    if (counterMap[awayTeam]) {
+      counterMap[awayTeam].games += 1
+    } else {
+      counterMap[awayTeam] = {
+        games: 1,
+      }
+    }
+    if (counterMap[homeTeam]) {
+        counterMap[homeTeam].games += 1
+    } else {
+        counterMap[homeTeam] = {
+          games: 1,
+        }
+      }
+  });
+    const names = Object.keys(counterMap);
+    names.forEach(element => {
+        let tag = document.createElement("h1");
+        let text = document.createTextNode(element);
+        tag.appendChild(text);
+        document.body.appendChild(tag);
+    })
+}
+
+addCountries(fifaData);
